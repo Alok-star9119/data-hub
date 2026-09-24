@@ -1,0 +1,6 @@
+{
+  "name": "The Data Hub",
+  "description": "RESTful API Server built with Node.js and Express featuring in-memory CRUD operations, custom request logging middleware, mock JWT authentication, and an interactive Thunder Client / Postman QA testing suite.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
