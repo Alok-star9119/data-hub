@@ -24,7 +24,7 @@ export default function App() {
   const fetchPosts = useCallback(async () => {
     setIsLoadingPosts(true);
     try {
-      const res = await fetch("/posts");
+      const res = await fetch("/api/posts");
       if (res.ok) {
         const data = await res.json();
         setPosts(Array.isArray(data) ? data : []);

@@ -30,7 +30,7 @@ export const DatabaseExplorer: React.FC<DatabaseExplorerProps> = ({
   const handleDelete = async (id: string) => {
     if (!confirm(`Confirm deletion of Post ID #${id} via DELETE /posts/${id}?`)) return;
     try {
-      await fetch(`/posts/${id}`, { method: "DELETE" });
+      await fetch(`/api/posts/${id}`, { method: "DELETE" });
       onRefresh();
     } catch (e) {
       alert("Failed to delete post");
@@ -46,7 +46,7 @@ export const DatabaseExplorer: React.FC<DatabaseExplorerProps> = ({
 
     setIsSubmitting(true);
     try {
-      const res = await fetch("/posts", {
+      const res = await fetch("/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

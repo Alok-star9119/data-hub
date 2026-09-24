@@ -12,7 +12,7 @@ const PRESET_ENDPOINTS = [
     name: "GET All Posts",
     phase: "Phase 1 & 2",
     method: "GET",
-    path: "/posts",
+    path: "/api/posts",
     description: "Serve the entire blogPosts array payload",
     defaultBody: "",
   },
@@ -20,7 +20,7 @@ const PRESET_ENDPOINTS = [
     name: "GET Post by ID",
     phase: "Phase 1 & 2",
     method: "GET",
-    path: "/posts/1",
+    path: "/api/posts/1",
     description: "Retrieve a single blog post by its URL ID parameter",
     defaultBody: "",
   },
@@ -28,7 +28,7 @@ const PRESET_ENDPOINTS = [
     name: "POST Create Post",
     phase: "Phase 1 & 2",
     method: "POST",
-    path: "/posts",
+    path: "/api/posts",
     description: "Intercept req.body and append post into in-memory array",
     defaultBody: JSON.stringify(
       {
@@ -45,7 +45,7 @@ const PRESET_ENDPOINTS = [
     name: "PUT Update Post",
     phase: "Phase 1 & 2",
     method: "PUT",
-    path: "/posts/1",
+    path: "/api/posts/1",
     description: "Update existing post matching ID parameter with new values",
     defaultBody: JSON.stringify(
       {
@@ -60,7 +60,7 @@ const PRESET_ENDPOINTS = [
     name: "DELETE Remove Post",
     phase: "Phase 1 & 2",
     method: "DELETE",
-    path: "/posts/1",
+    path: "/api/posts/1",
     description: "Filter and remove matching post from in-memory array",
     defaultBody: "",
   },
@@ -68,7 +68,7 @@ const PRESET_ENDPOINTS = [
     name: "POST /login (Auth)",
     phase: "Phase 3",
     method: "POST",
-    path: "/login",
+    path: "/api/login",
     description: "Authenticate with credentials and receive a mock JWT token",
     defaultBody: JSON.stringify(
       {
@@ -84,7 +84,7 @@ const PRESET_ENDPOINTS = [
 export const ThunderClient: React.FC<ThunderClientProps> = ({ onRefreshDatabase, onPostCreated }) => {
   // Request State
   const [method, setMethod] = useState<string>("GET");
-  const [urlPath, setUrlPath] = useState<string>("/posts");
+  const [urlPath, setUrlPath] = useState<string>("/api/posts");
   const [activeReqTab, setActiveReqTab] = useState<'body' | 'headers'>('body');
   const [requestBody, setRequestBody] = useState<string>("");
   const [authHeader, setAuthHeader] = useState<string>("");
@@ -220,7 +220,7 @@ export const ThunderClient: React.FC<ThunderClientProps> = ({ onRefreshDatabase,
         name: "Verify In-Memory Database Initialization",
         phase: "Phase 1 & 2",
         method: "GET",
-        endpoint: "/posts",
+        endpoint: "/api/posts",
         expectedStatus: 200,
         description: "Fetch blogPosts array and verify valid 200 HTTP response",
       },
@@ -229,7 +229,7 @@ export const ThunderClient: React.FC<ThunderClientProps> = ({ onRefreshDatabase,
         name: "Create New Post (POST /posts)",
         phase: "Phase 1 & 2",
         method: "POST",
-        endpoint: "/posts",
+        endpoint: "/api/posts",
         payload: {
           title: "Automated QA Test Post via Thunder Client",
           content: "Verifying Express req.body extraction and array push functionality.",
@@ -244,7 +244,7 @@ export const ThunderClient: React.FC<ThunderClientProps> = ({ onRefreshDatabase,
         name: "Query Single Post (GET /posts/:id)",
         phase: "Phase 1 & 2",
         method: "GET",
-        endpoint: "/posts/TARGET_ID", // will replace dynamically
+        endpoint: "/api/posts/TARGET_ID", // will replace dynamically
         expectedStatus: 200,
         description: "Assert GET /posts/:id retrieves the exact created object",
       },
@@ -253,7 +253,7 @@ export const ThunderClient: React.FC<ThunderClientProps> = ({ onRefreshDatabase,
         name: "Update Post by ID (PUT /posts/:id)",
         phase: "Phase 1 & 2",
         method: "PUT",
-        endpoint: "/posts/TARGET_ID",
+        endpoint: "/api/posts/TARGET_ID",
         payload: {
           title: "Updated: Automated QA Test Post (Validated)",
           content: "Verified PUT modification in memory without changing record ID.",
@@ -266,7 +266,7 @@ export const ThunderClient: React.FC<ThunderClientProps> = ({ onRefreshDatabase,
         name: "Delete Post by ID (DELETE /posts/:id)",
         phase: "Phase 1 & 2",
         method: "DELETE",
-        endpoint: "/posts/TARGET_ID",
+        endpoint: "/api/posts/TARGET_ID",
         expectedStatus: 200,
         description: "Assert DELETE /posts/:id filters array and returns confirmation",
       },
@@ -275,7 +275,7 @@ export const ThunderClient: React.FC<ThunderClientProps> = ({ onRefreshDatabase,
         name: "Verify 404 on Deleted Post (GET /posts/:id)",
         phase: "Phase 1 & 2",
         method: "GET",
-        endpoint: "/posts/TARGET_ID",
+        endpoint: "/api/posts/TARGET_ID",
         expectedStatus: 404,
         description: "Assert requesting deleted ID correctly returns HTTP 404",
       },
@@ -284,7 +284,7 @@ export const ThunderClient: React.FC<ThunderClientProps> = ({ onRefreshDatabase,
         name: "Mock JWT Authentication (POST /login)",
         phase: "Phase 3",
         method: "POST",
-        endpoint: "/login",
+        endpoint: "/api/login",
         payload: {
           username: "sprint_evaluator@thedatahub.io",
           password: "evaluationTokenPass2026",
@@ -560,12 +560,12 @@ export const ThunderClient: React.FC<ThunderClientProps> = ({ onRefreshDatabase,
               </select>
 
               <div className="flex-1 flex items-center bg-neutral-50 rounded-lg border border-neutral-300 px-3 py-1.5 focus-within:border-neutral-900 focus-within:bg-white transition-all">
-                <span className="text-neutral-400 text-xs font-mono select-none">http://localhost:5000</span>
+                <span className="text-neutral-400 text-xs font-mono select-none">Current Origin</span>
                 <input
                   type="text"
                   value={urlPath}
                   onChange={(e) => setUrlPath(e.target.value)}
-                  placeholder="/posts"
+                  placeholder="/api/posts"
                   className="w-full bg-transparent text-xs font-mono text-neutral-900 focus:outline-none ml-1"
                 />
               </div>

@@ -16,6 +16,12 @@ export const ApiDocs: React.FC = () => {
       name: "The Data Hub - RESTful API Server",
       description: "Comprehensive CRUD and Auth collection for The Data Hub (Node.js & Express)",
       schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      variable: [
+        {
+          key: "baseUrl",
+          value: typeof window !== "undefined" ? window.location.origin : "http://localhost:3000",
+        },
+      ],
     },
     item: [
       {
@@ -23,7 +29,7 @@ export const ApiDocs: React.FC = () => {
         request: {
           method: "GET",
           header: [],
-          url: { raw: "http://localhost:5000/posts", host: ["http://localhost:5000"], path: ["posts"] },
+          url: { raw: "{{baseUrl}}/api/posts", host: ["{{baseUrl}}"], path: ["posts"] },
         },
       },
       {
@@ -31,7 +37,7 @@ export const ApiDocs: React.FC = () => {
         request: {
           method: "GET",
           header: [],
-          url: { raw: "http://localhost:5000/posts/1", host: ["http://localhost:5000"], path: ["posts", "1"] },
+          url: { raw: "{{baseUrl}}/api/posts/1", host: ["{{baseUrl}}"], path: ["posts", "1"] },
         },
       },
       {
@@ -47,7 +53,7 @@ export const ApiDocs: React.FC = () => {
               author: "Lead Architect",
             }, null, 2),
           },
-          url: { raw: "http://localhost:5000/posts", host: ["http://localhost:5000"], path: ["posts"] },
+          url: { raw: "{{baseUrl}}/api/posts", host: ["{{baseUrl}}"], path: ["posts"] },
         },
       },
       {
@@ -62,7 +68,7 @@ export const ApiDocs: React.FC = () => {
               content: "Expanded with middleware pipelines and idempotent updates.",
             }, null, 2),
           },
-          url: { raw: "http://localhost:5000/posts/1", host: ["http://localhost:5000"], path: ["posts", "1"] },
+          url: { raw: "{{baseUrl}}/api/posts/1", host: ["{{baseUrl}}"], path: ["posts", "1"] },
         },
       },
       {
@@ -70,7 +76,7 @@ export const ApiDocs: React.FC = () => {
         request: {
           method: "DELETE",
           header: [],
-          url: { raw: "http://localhost:5000/posts/1", host: ["http://localhost:5000"], path: ["posts", "1"] },
+          url: { raw: "{{baseUrl}}/api/posts/1", host: ["{{baseUrl}}"], path: ["posts", "1"] },
         },
       },
       {
@@ -85,7 +91,7 @@ export const ApiDocs: React.FC = () => {
               password: "securepassword123",
             }, null, 2),
           },
-          url: { raw: "http://localhost:5000/login", host: ["http://localhost:5000"], path: ["login"] },
+          url: { raw: "{{baseUrl}}/api/login", host: ["{{baseUrl}}"], path: ["login"] },
         },
       },
     ],
@@ -111,36 +117,36 @@ export const ApiDocs: React.FC = () => {
     {
       id: "curl-get-all",
       name: "GET /posts (Serve entire array)",
-      code: `curl -X GET http://localhost:5000/posts`,
+      code: `curl -X GET http://localhost:3000/api/posts`,
     },
     {
       id: "curl-get-one",
       name: "GET /posts/1 (Fetch single record)",
-      code: `curl -X GET http://localhost:5000/posts/1`,
+      code: `curl -X GET http://localhost:3000/api/posts/1`,
     },
     {
       id: "curl-post",
       name: "POST /posts (Create new post with JSON body)",
-      code: `curl -X POST http://localhost:5000/posts \\
+      code: `curl -X POST http://localhost:3000/api/posts \\
   -H "Content-Type: application/json" \\
   -d '{"title": "High Performance Express Servers", "content": "Analyzing event loop delays and stream piping.", "author": "Systems Engineer"}'`,
     },
     {
       id: "curl-put",
       name: "PUT /posts/1 (Update post by ID)",
-      code: `curl -X PUT http://localhost:5000/posts/1 \\
+      code: `curl -X PUT http://localhost:3000/api/posts/1 \\
   -H "Content-Type: application/json" \\
   -d '{"title": "Updated: Express Architecture", "content": "Updated content via PUT endpoint."}'`,
     },
     {
       id: "curl-delete",
       name: "DELETE /posts/1 (Remove record from memory)",
-      code: `curl -X DELETE http://localhost:5000/posts/1`,
+      code: `curl -X DELETE http://localhost:3000/api/posts/1`,
     },
     {
       id: "curl-login",
       name: "POST /login (Mock JWT Authentication)",
-      code: `curl -X POST http://localhost:5000/login \\
+      code: `curl -X POST http://localhost:3000/api/login \\
   -H "Content-Type: application/json" \\
   -d '{"username": "developer@thedatahub.io", "password": "supersecretpassword"}'`,
     },
